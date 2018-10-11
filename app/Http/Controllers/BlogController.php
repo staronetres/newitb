@@ -1,14 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-
+use Storage;
 
 
 use App\Blog;
 
 use App\Category;
+
+use App\Photo;
+
+use Image;
 
 class BlogController extends Controller
 {
@@ -35,8 +39,48 @@ class BlogController extends Controller
 
       public function store(Request $request)
     {
-        $input = $request->all();
-        $blog = Blog::create($input);
+
+        // $formInput=$request->except('image');
+        // $input = $request->all();
+        // $blog = Blog::create($input);
+        // if ($categoryIds = $request->category_id) {
+        //     $blog->category()->sync($categoryIds);
+        // }
+        // return redirect('blog');
+
+
+
+        // $input = $request->all();
+
+        // if ($photo = $request->image('photo_id')) {
+        //     $name = $photo->getClientOriginalName();
+        //     $photo->move('images', $name);
+        //     $photo = Photo::create(['photo' => $name]);
+        //     $input['photo_id'] = $photo->id;
+        // }
+
+
+        // $image=$request->photo_id;
+
+        $formInput=$request->except('image');
+        // $input = $request->all();
+        
+
+        $image=$request->image;
+        if($image){
+            $imageName=$image->getClientOriginalName();
+            $image->move('images',$imageName);
+            // $image->resize(238, 238)->move('images',$imageName);
+            $formInput['image']=$imageName;
+        }
+
+
+
+
+
+        $blog = Blog::create($formInput);
+
+        // $blog = Blog::create($input);
         if ($categoryIds = $request->category_id) {
             $blog->category()->sync($categoryIds);
         }

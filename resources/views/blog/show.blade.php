@@ -17,9 +17,42 @@
 
 </article>
  <div class="jumbotron">
-       <h1>{{ $blog->title }}</h1><a style="float:right" href="{{ action('BlogController@edit', [$blog->id])}}">Edit</a>
+  <div class="col-md-6 text-center">
+
+ 
+
+  <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                
+                    
+                </tr>
+            </thead>
+
+            <tbody>
+
+<tr>
+ 
+<img class="card-img-top img-fluid" src="{{url('images',$blog->image)}}" width="50px" alt="Card image cap">
+
+
+ 
+</tr>
+
+   </table>
+       
+     
+       
+
+
+
+
    </div>
 
+       <h1>{{ $blog->title }}</h1><a style="float:right" href="{{ action('BlogController@edit', [$blog->id])}}">Edit</a>
+   </div>
+       
 
      <p>{{ $blog->body }}</p>
    @foreach ($blog->category as $category)
