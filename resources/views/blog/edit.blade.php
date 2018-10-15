@@ -8,7 +8,7 @@
    </div>
    <div class="col-sm-10 col-sm-offset-1">
 
-  {!! Form::model($blog, ['method' => 'PATCH', 'action' => ['BlogController@update', $blog->id]]) !!}
+  {!! Form::model($blog, ['method' => 'PATCH', 'action' => ['BlogController@update', $blog->id, 'files' => true]]) !!}
    <div class="form-group">
     {!! Form::label("title", "Title:") !!}
     {!! Form::text("title", null, ['class' => 'form-control']) !!}
@@ -26,7 +26,10 @@
       </div>
 
 
-
+      <div class="form-group">
+       {!! Form::label("image", "Featured Image:") !!}
+       {!! Form::file("image", ['class' => 'form-control']) !!}
+   </div>
 
     <div class="form-group">
        {!! Form::submit("Edit Blog", ['class' => 'btn btn-primary']) !!}

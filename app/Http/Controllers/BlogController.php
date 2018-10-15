@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Storage;
 
 
@@ -62,17 +63,51 @@ class BlogController extends Controller
 
         // $image=$request->photo_id;
 
+
+        //Original Code -->
+
         $formInput=$request->except('image');
-        // $input = $request->all();
+        $input = $request->all();
         
 
-        $image=$request->image;
-        if($image){
-            $imageName=$image->getClientOriginalName();
-            $image->move('images',$imageName);
+        // $image=$request->image;
+        // if($image){
+        //     $imageName=$image->getClientOriginalName();
+        //     $image->move('images',$imageName);
             // $image->resize(238, 238)->move('images',$imageName);
-            $formInput['image']=$imageName;
+        //     $formInput['image']=$imageName;
+        // }
+
+        //End of Original Code -->
+
+        if ($file = $request->file('photo_id')) {
+            $imageName = $file->getClientOriginalName();
+            $file->move('images', $imageName);
+            $photo = Photo::create(['photo' => $imageName, 'title' => $imageName]);
+            $formInput['photo_id'] = $photo->id;
         }
+
+
+        //  if ($image = $request->file('photo_id')) {
+        //     $imageName = $file->getClientOriginalName();
+        //     $image->move('images', $imageName);
+        //     $photo = Photo::create(['photo' => $imageName, 'title' => $name]);
+        //     $formInput['photo_id'] = $photo->id;
+        // }
+
+        // if ($file = $request->file('photo_id')) {
+        //     $name = Carbon::now(). '.' .$file->getClientOriginalName();
+        //     $file->move('images', $name);
+        //     $photo = Photo::create(['photo' => $name, 'title' => $name]);
+        //     $input['photo_id'] = $photo->id;
+        // }
+
+
+        // $image = $request->file('image');
+        // $imageName = date('Y-m-d-H:i:s')."-".$image->getClientOriginalName();
+        // Image::make($image->getRealPath())->resize(468, 249)->save('public/images'.$imageName);
+        // $blog->image = 'img/products/'.$imageName;
+        // $blog->save();
 
 
 
@@ -103,14 +138,36 @@ class BlogController extends Controller
 
      public function update(Request $request, $id)
     {
-        $input = $request->all();
-        $blog = Blog::findOrFail($id);
-        $blog->update($input);
+         // $formInput=$request->except('image');
+        // $input = $request->all();
+         $formInput=$request->all();
+         $blog = Blog::findOrFail($id);
+
+
+        // if($image = $request->file('image')){
+
+        if($image = $request->image){
+            $imageName = time() . $image->getClientOriginalName();
+
+
+            $image->move('images', $imageName);
+
+            $photo = Photo::create(['file'=>$name]);
+
+
+            $formInput['image']=$imageName;
+
+
+        }
+
+     // Blogs()->whereId($id)->first()->update($formInput);
+
+        
+        $blog->update($formInput);
          if ($categoryIds = $request->category_id) {
             $blog->category()->sync($categoryIds);
         }
         return redirect('blog');
-
     }
 
      public function destroy(Request $request, $id)

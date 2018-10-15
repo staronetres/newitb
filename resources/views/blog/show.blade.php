@@ -34,7 +34,14 @@
 
 <tr>
  
-<img class="card-img-top img-fluid" src="{{url('images',$blog->image)}}" width="50px" alt="Card image cap">
+
+
+
+
+
+ @if ($blog->photo)
+            <img class="img-responsive featured_image" src="/images/{{ $blog->photo ? $blog->photo->photo : '' }}" alt="{{ str_limit($blog->title, 50) }}"><br>
+            @endif
 
 
  
