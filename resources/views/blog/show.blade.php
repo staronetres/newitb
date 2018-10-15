@@ -36,9 +36,6 @@
  
 
 
-<img src="{{url('images',$blog->photo->image)}}" class="card-img-top">
-
-<img src="{{url('images',$blog->photo->photo)}}" class="card-img-top">
 
 
  @if ($blog->photo)
