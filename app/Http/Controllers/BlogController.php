@@ -80,9 +80,16 @@ class BlogController extends Controller
 
         //End of Original Code -->
 
-        if ($file = $request->file('photo_id')) {
-            $imageName = $file->getClientOriginalName();
-            $file->move('images', $imageName);
+        // if ($file = $request->file('photo_id')) {
+        //     $imageName = $file->getClientOriginalName();
+        //     $file->move('images', $imageName);
+        //     $photo = Photo::create(['photo' => $imageName, 'title' => $imageName]);
+        //     $formInput['photo_id'] = $photo->id;
+        // }
+
+         if ($image = $request->image) {
+            $imageName = $image->getClientOriginalName();
+            $image->move('images', $imageName);
             $photo = Photo::create(['photo' => $imageName, 'title' => $imageName]);
             $formInput['photo_id'] = $photo->id;
         }
