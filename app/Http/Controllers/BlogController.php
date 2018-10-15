@@ -90,7 +90,7 @@ class BlogController extends Controller
          if ($image = $request->image) {
             $imageName = $image->getClientOriginalName();
             $image->move('images', $imageName);
-            $photo = Photo::create(['photo' => $imageName, 'title' => $imageName]);
+            $photo = Photo::create(['image' => $imageName, 'title' => $imageName]);
             $formInput['photo_id'] = $photo->id;
         }
 

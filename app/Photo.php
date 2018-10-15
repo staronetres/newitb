@@ -11,7 +11,7 @@ class Photo extends Model
 {
 
 
-     protected $fillable = ['title', 'photo'];
+     protected $fillable = ['title', 'photo', 'image'];
     //
      public function blog()
     {

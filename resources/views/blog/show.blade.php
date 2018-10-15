@@ -42,7 +42,9 @@
             <img class="img-responsive featured_image" src="/images/{{ $blog->photo ? $blog->photo->photo : '' }}" alt="{{ str_limit($blog->title, 50) }}"><br>
             @endif
 
-
+@if ($blog->photo)
+            <img class="img-responsive featured_image" src="/images/{{ $blog->photo ? $blog->photo->image : '' }}" alt="{{ str_limit($blog->title, 50) }}"><br>
+            @endif
  
 </tr>
 
